@@ -1,0 +1,81 @@
+﻿@model ExpenseTracker.Models.Category
+
+@{
+    ViewData["Title"] = "Add Expenses";
+}
+
+
+
+<h4 class="mt-5 mb-4 section-title text-uppercase">Add / Edit Category</h4>
+<hr />
+<div class="container">
+    <div class="col-md-12">
+        <form asp-action="InsertCategory" class="row justify-content-center">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-4">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control rounded-0"  />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Icon" class="control-label"></label>
+                <input asp-for="Icon" class="form-control rounded-0" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Type" class="control-label"></label>
+                <div class="row">
+                    <div class="col-md-4 mt-2">
+                        <input type="radio" asp-for="Type" value="Expense" id="expense" />
+                        <label class="text-black" for="expense">Expense</label>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <input type="radio" asp-for="Type" value="Income" id="income" />
+                        <label class="text-black" for="income">Income</label>
+                    </div>
+                </div>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4 col-md-4">
+                <input type="submit" value="Create" class="btn btn-dark rounded-0 text-uppercase w-100 " />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Title)</th>
+                            <th>@Html.DisplayNameFor(model => model.Icon)</th>
+                            <th>@Html.DisplayNameFor(model => model.Type)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Categories)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.Icon</td>
+                                <td>@item.Type</td>
+                                <td class="col-md-4">
+                                    <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-sm btn-primary rounded-0">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.CategoryId" class="btn btn-sm btn-danger rounded-0">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -22,7 +22,25 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    /*background-color: #F5F3F5;*/
+    margin-bottom: 60px;
 }
 
 
+.e-grid .e-gridheader {
+    background-color: #302B27; /* Dark blue */
+    color: #ffffff;
+    padding: 10px 1px;
+    font-weight: bold;
+}
+
+.e-grid .e-headercell {
+    background-color: #302B27; /* Dark blue */
+    color: #ffffff;
+}
+
+
+.e-grid .e-headercelldiv {
+    font-family: "Jost", sans-serif;
+    font-size:15px;
+}

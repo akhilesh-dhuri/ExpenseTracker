@@ -44,3 +44,13 @@ body {
     font-family: "Jost", sans-serif;
     font-size:15px;
 }
+
+.e-row .e-rowcell {
+    font-size: 1.2em;
+}
+
+/*Breadcrumb*/
+.e-breadcrumb a, e-breadcrumb a:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ExpenseTracker</title>
+    <title>ExpenseTracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Marcellus&display=swap" rel="stylesheet">
@@ -40,6 +40,21 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading-area">
+                            <h4 class="mt-5 mb-4 section-title text-uppercase">@ViewData["PageTitle"]</h4>
+                       </div>
+                       <div class="breadcrumb-area">
+                            <ejs-breadcrumb id="breadcrumb" separatorTemplate="@Html.Raw("<i class='fa-solid fa-angle-right'></i>")">
+                                
+                            </ejs-breadcrumb>
+                       </div>
+                       <hr />
+                    </div>
+                </div>
+            </div>
             @RenderBody()
         </main>
     </div>

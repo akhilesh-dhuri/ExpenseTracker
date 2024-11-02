@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ExpenseTracker.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Controllers
 {
@@ -18,39 +13,9 @@ namespace ExpenseTracker.Controllers
             _context = context;
         }
 
-        // GET: Category
+
+        // GET: Category/Create
         public async Task<IActionResult> Index()
-        {
-            return View(await _context.Categories.ToListAsync());
-        }
-
-        // GET: Category/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
-        }
-
-        // GET: Category/Create
-        //public IActionResult Create()
-        //{
-
-        //    return View();
-        //}
-
-        // GET: Category/Create
-        public async Task<IActionResult> AddOrEdit()
         {
             var categories = await _context.Categories.ToListAsync();
             ViewBag.Categories = categories;
@@ -62,12 +27,12 @@ namespace ExpenseTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> InsertCategory([Bind("CategoryId,Title,Icon,Type")] Category category)
         {
-         
+
             if (ModelState.IsValid)
             {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(AddOrEdit));
+                return RedirectToAction(nameof(Index));
             }
             return View(category);
         }
@@ -116,26 +81,8 @@ namespace ExpenseTracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(AddOrEdit));
+                return RedirectToAction(nameof(Index));
             }
-            return View(category);
-        }
-
-        // GET: Category/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
             return View(category);
         }
 
@@ -151,7 +98,7 @@ namespace ExpenseTracker.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(AddOrEdit));
+            return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)

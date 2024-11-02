@@ -1,80 +1,80 @@
-﻿@model IEnumerable<ExpenseTracker.Models.Category>
+﻿@model ExpenseTracker.Models.Category
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["PageTitle"] = "Categories";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-@* <div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>@Html.DisplayNameFor(model => model.Title)</th>
-                            <th>@Html.DisplayNameFor(model => model.Icon)</th>
-                            <th>@Html.DisplayNameFor(model => model.Type)</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewBag.Categories)
-                        {
-                            <tr>
-                                <td>@item.Title</td>
-                                <td>@item.Icon</td>
-                                <td>@item.Type</td>
-                                <td class="col-md-4">
-                                    <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-sm btn-primary rounded-0">Edit</a>
-                                    <a asp-action="Delete" asp-route-id="@item.CategoryId" class="btn btn-sm btn-danger rounded-0">Delete</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="container row justify-content-between">
+    <div class="col-md-4">
+        <form asp-action="InsertCategory" class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group ">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control rounded-0" />
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-        </div>
+            <div class="form-group mt-3">
+                <label asp-for="Icon" class="control-label"></label>
+                <input asp-for="Icon" class="form-control rounded-0" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Type" class="control-label"></label>
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <input type="radio" asp-for="Type" value="Expense" id="expense" />
+                        <label class="text-black" for="expense">Expense</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input type="radio" asp-for="Type" value="Income" id="income" />
+                        <label class="text-black" for="income">Income</label>
+                    </div>
+                </div>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3 col-md-4">
+                <input type="submit" value="Create" class="btn btn-dark rounded-0 text-uppercase w-100 " />
+            </div>
+        </form>
     </div>
-</div> *@
+    <div class="col-md-7">
+        <ejs-grid id="Grid" dataSource="@ViewBag.Categories" allowPaging="true" gridLines="None" class=" rounded">
+
+            <e-grid-columns class="custom-grid-header">
+                <e-grid-column field="Title" headerText="Category" class="custom-grid-header"></e-grid-column>
+                <e-grid-column field="Icon" headerText="Icon" class="custom-grid-header" width="150px"></e-grid-column>
+                <e-grid-column template="#typeBadge" headerText=" Type" class="custom-grid-header" width="150px"></e-grid-column>
+                <e-grid-column template="#actionColumn" headerText=" Actions" class="custom-grid-header" width="120px"></e-grid-column>
+            </e-grid-columns>
+
+        </ejs-grid>
+    </div>
+</div>
+
+
+<script id="typeBadge" type="text/x-template">
+    ${if(Type == "Income")}
+        <span class="badge bg-success rounded-0">${Type}</span>
+    ${else}
+        <span class="badge bg-info text-dark rounded-0">${Type}</span>
+    ${/if}
+</script>
+
+<script id="actionColumn" type="text/x-template">
+    <div class="row">
+        <a href="/Category/Edit/${CategoryId}" class=" p-2 text-dark rounded-0 col-4"><i class="fa-solid fa-pen-to-square"></i></a>
+        @* <a href="/Category/Delete/${CategoryId}" class=" p-2 text-danger rounded-0"><i class="fa-solid fa-trash"></i></a> *@
+        <form action="/Category/Delete/${CategoryId}" method="post" class="col-4">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn p-2 text-danger rounded-0" onclick="return confirm(&quot; Are sure to delete this record?&quot;)">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </form>
+    </div>
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

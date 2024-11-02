@@ -30,6 +30,7 @@ namespace ExpenseTracker
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -38,7 +39,7 @@ namespace ExpenseTracker
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Category}/{action=AddOrEdit}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

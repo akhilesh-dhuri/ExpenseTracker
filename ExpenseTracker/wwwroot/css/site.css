@@ -53,4 +53,15 @@ body {
 .e-breadcrumb a, e-breadcrumb a:hover {
     text-decoration: none !important;
     color: inherit !important;
+    
+}
+
+.e-anchor-wrap {
+    text-transform: capitalize;
+}
+
+.form-control option {
+    -moz-border-radius: inherit;
+    -webkit-border-radius: inherit;
+    border-radius: inherit;
 }

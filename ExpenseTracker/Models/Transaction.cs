@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace ExpenseTracker.Models
 {
@@ -8,6 +9,7 @@ namespace ExpenseTracker.Models
         [Key]
         public int TransactionId { get; set; }
 
+        [Required(ErrorMessage = "Category is required.")]
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
 
@@ -21,5 +23,43 @@ namespace ExpenseTracker.Models
 
         [Required(ErrorMessage = "Date is required.")]
         public DateTime Date { get; set; } = DateTime.Now;
+
+        [NotMapped]
+        public string? AmountWithCurrency
+        {
+            get
+            {
+                // Create a custom NumberFormatInfo
+                NumberFormatInfo customFormat = new NumberFormatInfo
+                {
+                    CurrencySymbol = "₹",
+                    CurrencyDecimalDigits = 2,
+                    CurrencyDecimalSeparator = ".",
+                    CurrencyGroupSeparator = ",",
+                    CurrencyGroupSizes = new int[] { 3 }
+                };
+                return $"{this.Amount.ToString("C", customFormat)}";
+            }
+        }
+
+        [NotMapped]
+        public string? AmountWithSign
+        {
+            get
+            {
+                if (this.Category != null)
+                {
+                    if (this.Category.Type == "Income")
+                    {
+                        return $"+ {this.AmountWithCurrency}";
+                    }
+                    else
+                    {
+                        return $"- {this.AmountWithCurrency}";
+                    }
+                }
+                return null;
+            }
+        }
     }
 }

@@ -1,46 +1,41 @@
 ﻿@model ExpenseTracker.Models.Transaction
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["PageTitle"] = "Edit Transaction";
 }
 
-<h1>Edit</h1>
 
-<h4>Transaction</h4>
-<hr />
-<div class="row">
+<div class="container row justify-content-between">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TransactionId" />
-            <div class="form-group">
+            <div class="form-group mt-3 ">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                <select asp-for="CategoryId" class="form-control rounded-0" asp-items="ViewBag.CategoryId"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
+            <div class="form-group mt-3 ">
+                <label asp-for="Amount" class="control-label">Amount in ₹</label>
+                <input asp-for="Amount" class="form-control rounded-0" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3 ">
                 <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
+                <input asp-for="Note" class="form-control rounded-0" />
                 <span asp-validation-for="Note" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3 ">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+                <input asp-for="Date" class="form-control rounded-0" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mt-4 col-md-3">
+                <input type="submit" value="Update" class="btn btn-dark rounded-0 text-uppercase w-100" />
             </div>
         </form>
     </div>
 </div>
-
-<div>
+<div class="mt-4">
     <a asp-action="Index">Back to List</a>
 </div>
 

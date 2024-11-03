@@ -1,53 +1,67 @@
-﻿@model IEnumerable<ExpenseTracker.Models.Transaction>
-
+﻿@* @model IEnumerable<ExpenseTracker.Models.Transaction> *@
+@model ExpenseTracker.Models.Transaction
 @{
-    ViewData["Title"] = "Index";
+    ViewData["PageTitle"] = "Transactions";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TransactionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+@* <p>
+    <a asp-action="Add">Create New</a>
+</p> *@
+
+<div class="container row justify-content-between">
+    <div class="col-md-12">
+        <form asp-action="AddTransaction" class="row justify-content-center">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mt-3 col-md-3">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control rounded-0" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group mt-3 col-md-3">
+                <label asp-for="Amount" class="control-label">Amount in ₹</label>
+                <input asp-for="Amount" class="form-control rounded-0" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3 col-md-3">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control rounded-0" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3 col-md-3">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control rounded-0" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            @* <ejs-datepicker id="datepicker" ejs-for="Date" placeholder="Date" floatLabelType="Always" format="ddd MMM dd yy"></ejs-datepicker> *@
+
+            <div class="form-group mt-4 col-md-3">
+                <input type="submit" value="Add" class="btn btn-dark rounded-0 text-uppercase w-100" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<ejs-grid id="Grid" dataSource="@ViewBag.Transaction " allowPaging="true" gridLines="None" class=" mt-4 rounded" autoFit="true">
+
+    <e-grid-columns class="custom-grid-header">
+        <e-grid-column field="Category.TitleWithIcon" headerText="Category" width="220px" class="custom-grid-header"></e-grid-column>
+        <e-grid-column field="AmountWithSign" headerText="Amount" class="custom-grid-header" width="220px"></e-grid-column>
+        <e-grid-column field="Note" headerText="Note" class="custom-grid-header"></e-grid-column>
+        <e-grid-column field="Date" headerText="Date" type="date"  class="custom-grid-header" format="MMM dd yyyy HH:MM"></e-grid-column>
+        <e-grid-column template="#actionColumn" headerText=" Actions" class="custom-grid-header" width="120px"></e-grid-column>
+    </e-grid-columns>
+
+</ejs-grid>
+
+<script id="actionColumn" type="text/x-template">
+    <div class="row">
+        <a href="/Transactions/Edit/${TransactionId}" class=" p-2 text-dark rounded-0 col-4"><i class="fa-solid fa-pen-to-square"></i></a>
+        <form action="/Transactions/Delete/${TransactionId}" method="post" class="col-4">
+    @Html.AntiForgeryToken()
+            <button type="submit" class="btn p-2 text-danger rounded-0" onclick="return confirm(&quot; Are sure to delete this transaction?&quot;)">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </form>
+    </div>
+</script>

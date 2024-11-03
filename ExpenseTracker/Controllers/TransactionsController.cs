@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ExpenseTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Controllers
 {
@@ -21,42 +17,22 @@ namespace ExpenseTracker.Controllers
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            var expensetrackerDb = _context.Transactions.Include(t => t.Category);
-            return View(await expensetrackerDb.ToListAsync());
-        }
-
-        // GET: Transactions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var transaction = await _context.Transactions
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(m => m.TransactionId == id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
-            return View(transaction);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "TitleWithIcon");
+            ViewBag.Transaction = await _context.Transactions.Include(t => t.Category).ToListAsync();
+            return View();
         }
 
         // GET: Transactions/Create
-        public IActionResult Create()
+        public IActionResult Add()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Icon");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "TitleWithIcon");
             return View();
         }
 
         // POST: Transactions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
+        public async Task<IActionResult> AddTransaction([Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -86,8 +62,6 @@ namespace ExpenseTracker.Controllers
         }
 
         // POST: Transactions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
@@ -118,25 +92,6 @@ namespace ExpenseTracker.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Icon", transaction.CategoryId);
-            return View(transaction);
-        }
-
-        // GET: Transactions/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var transaction = await _context.Transactions
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(m => m.TransactionId == id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
             return View(transaction);
         }
 

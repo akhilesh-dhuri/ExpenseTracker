@@ -18,8 +18,8 @@
 </head>
 <body>
 
-    <partial name="_SideBar" />
 
+    <partial name="_SideBar" />
     <header >
         <nav class=" navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -44,21 +44,25 @@
 
     <div class="main-content">
         <div class="container">
-            <main role="main" class="pb-3">
+            <main role="main" class=" pb-3">
+               
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="heading-area">
-                                <h4 class="mt-5 mb-4 section-title text-uppercase">@ViewData["PageTitle"]</h4>
-                            </div>
-                            <div class="breadcrumb-area">
-                                <ejs-breadcrumb id="breadcrumb" separatorTemplate="@Html.Raw("<i class='fa-solid fa-angle-right'></i>")">
+                   @if(ViewData["isDashboard"] == null)
+                   {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="heading-area">
+                                    <h4 class="mt-5 mb-4 section-title text-uppercase">@ViewData["PageTitle"]</h4>
+                                </div>
+                                <div class="breadcrumb-area">
+                                    <ejs-breadcrumb id="breadcrumb" separatorTemplate="@Html.Raw("<i class='fa-solid fa-angle-right'></i>")">
 
-                                </ejs-breadcrumb>
+                                    </ejs-breadcrumb>
+                                </div>
+                                <hr />
                             </div>
-                            <hr />
                         </div>
-                    </div>
+                   }
                 </div>
                 @RenderBody()
             </main>

@@ -2,4 +2,77 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["isDashboard"] = true;
 }
+
+@* Summary Widgets *@
+
+<div class="row mb-4">
+    <div>
+        <div class="">
+            <div class=" container ">
+                <div class="row ">
+                    <div class="col-md-3 card  ">
+                        <div class="summary-widget card-body d-flex ">
+                            <div class="summary-widget-icon text-success">
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+                            </div>
+                            <div class="summary-widget-content">
+                                <h4>@ViewBag.TotalIncome</h4>
+                                <h5>Income</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 card mx-3">
+                        <div class="summary-widget card-body d-flex">
+                            <div class="summary-widget-icon text-danger">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <div class="summary-widget-content">
+                                <h4>@ViewBag.TotalExpense</h4>
+                                <h5>Expense</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 card">
+                        <div class="summary-widget  card-body d-flex">
+                            <div class="summary-widget-icon text-info">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <div class="summary-widget-content">
+                                <h4>@ViewBag.Balance</h4>
+                                <h5>Balance</h5>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart Widgets -->
+<div class="row mb-4 px-3">
+    <div class="col-md-4">
+        <div class="card widget chart">
+            <div class="card-body">
+                <h5>Expense By Category</h5>
+                <div class="chart-container">
+                    <ejs-accumulationchart id="doughnutchart">
+
+                    </ejs-accumulationchart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

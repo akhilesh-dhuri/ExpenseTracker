@@ -65,3 +65,17 @@ body {
     -webkit-border-radius: inherit;
     border-radius: inherit;
 }
+
+.main-content{
+    margin-left:290px;
+}
+
+.summary-widget-icon {
+    display: flex;
+    font-size:30px;
+    justify-content: center; /* Centers the icon horizontally */
+    align-items: center; /* Centers the icon vertically */
+    height: 50px; /* Set a fixed height for the container */
+    width: 100px; /* Set a fixed width for the container */
+    /*margin: 0 auto;*/ /* Centers the container itself if needed */
+}

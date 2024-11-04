@@ -1,5 +1,6 @@
+
 * {
-    /*font-family: "Open Sans", sans-serif !important;*/
+    font-family: var(--bs-body-font-family);
 }
 
 html {
@@ -7,18 +8,18 @@ html {
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -42,7 +43,7 @@ body {
 
 .e-grid .e-headercelldiv {
     font-family: "Jost", sans-serif;
-    font-size:15px;
+    font-size: 15px;
 }
 
 .e-row .e-rowcell {
@@ -53,7 +54,6 @@ body {
 .e-breadcrumb a, e-breadcrumb a:hover {
     text-decoration: none !important;
     color: inherit !important;
-    
 }
 
 .e-anchor-wrap {
@@ -66,16 +66,114 @@ body {
     border-radius: inherit;
 }
 
-.main-content{
-    margin-left:290px;
-}
-
 .summary-widget-icon {
     display: flex;
-    font-size:30px;
+    font-size: 30px;
     justify-content: center; /* Centers the icon horizontally */
     align-items: center; /* Centers the icon vertically */
     height: 50px; /* Set a fixed height for the container */
     width: 100px; /* Set a fixed width for the container */
     /*margin: 0 auto;*/ /* Centers the container itself if needed */
 }
+
+nav.navbar i {
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+    nav.navbar i:hover, nav.navbar img:hover {
+        cursor: pointer;
+        background-color: #48545f14;
+        transform: scale(1.05) translateZ(0px);
+    }
+
+/*profile pic*/
+img.profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+#sidebar {
+    background-color: #f1faee;
+    border-right: 1px dashed rgba(75,82,85,0.24);
+    padding: 10px 20px;
+    overflow: hidden;
+}
+
+    #sidebar.e-menu-wrapper {
+        width: 100%;
+        background-color: #f1faee;
+    }
+
+
+/* Custom styles for the Syncfusion Sidebar */
+#sidebar {
+    background-color: #ffffff; /* f1faee background for the sidebar */
+    border-right: 1px solid #ccc; /* Subtle border on the right */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+/* Custom styles for the Syncfusion Menu inside the Sidebar */
+#menu {
+    background-color: #ffffff; /* Inherit the sidebar background */
+    width: 170%; /* Ensure the menu takes full width */
+    padding: 10px; /* Add padding around the menu */
+}
+
+    #menu .e-menu-item {
+        height: 50px; /* Set a consistent height for menu items */
+        line-height: 50px; /* Center text vertically */
+        border-radius: 4px; /* Rounded corners for menu items */
+        /* Smooth transitions */
+    }
+
+        #menu .e-menu-item:hover {
+            background-color: #a8dadc; /* Change background on hover */
+            color: #333; /* Darker text color on hover */
+        }
+
+        #menu .e-menu-item a {
+            color: #555; /* Default text color */
+            text-decoration: none; /* Remove underline from links */
+            display: block; /* Ensure the link takes full item space */
+            padding: 0 15px; /* Horizontal padding for links */
+        }
+
+
+        #menu .e-menu-item.e-separator {
+            border: none;
+            margin: 5px 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 13px;
+            color: #023047;
+            font-family: "Marcellus", Roboto, sans-serif;
+        }
+
+/*Profile Pic*/
+img.profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.profile-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f1faee;
+    padding: 16px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+    .profile-wrapper .titles {
+        line-height: 1;
+        color: #023047;
+        font-weight:bold;
+    }
+

@@ -75,10 +75,10 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: var(--heading-font);
-  font-weight: var(--heading-font-weight);
-  color: var(--heading-color);
-  line-height: var(--heading-line-height);
+    font-family: var(--heading-font);
+    font-weight: var(--heading-font-weight);
+    color: #1d3557;
+    line-height: var(--heading-line-height);
 }
 
 h1.light,

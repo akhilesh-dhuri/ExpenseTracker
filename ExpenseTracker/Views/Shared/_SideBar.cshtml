@@ -2,12 +2,63 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+	List<Object> menuItems = new List<Object>();
+
+    menuItems.Add(new
+    {
+        text = "General",
+        separator = true,
+    });
+
+	menuItems.Add(new
+    {
+        text = "Dashboard",
+        iconCss = "fa-solid fa-home",
+        url = "/Dashboard"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Category",
+        iconCss = "fa-solid fa-list",
+        url = "/Category"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Transactions",
+        iconCss = "fa-solid fa-right-left",
+        url = "/Transactions"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Extras",
+        separator = true,
+    });
+    menuItems.Add(new
+    {
+        text = "Reports",
+        iconCss = "fa-solid fa-chart-simple",
+        url = "#"
+    }); menuItems.Add(new
+    {
+        text = "Settings",
+        iconCss = "fa-solid fa-gear",
+        url = "#"
+    });
 }
 
-<ejs-sidebar id="sidebar" class="bg-white" width="290px" closeOnDocumentClick="false">
+<ejs-sidebar id="sidebar" width="350px" enableDock>
+
 	<e-content-template>
-		<div class="title-header">
-			<div style="display:inline-block"> Sidebar </div>
-		</div>
+        <div class="profile-wrapper">
+            <img class="profile-pic" src="~/profile.jpg" />
+            <div class="titles d-flex flex-column ps-3">
+                <h5 class="mb-0">Expense Tracker</h5>
+               
+            </div>
+        </div>
+		<ejs-menu id="menu" items="menuItems" orientation="Vertical"></ejs-menu>
 	</e-content-template>
 </ejs-sidebar>
